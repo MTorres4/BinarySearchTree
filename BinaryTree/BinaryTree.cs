@@ -17,51 +17,83 @@ namespace BinarySearchTree
             count = 0;
         }
 
+        public BinaryTree(int nums)
+        {
+            root = new Node(nums); 
+        }
+
         public void Add(int nums)
         {
-            Node newNode = new Node(nums);
-            newNode.Nums = nums;
+            //Node newNode = new Node(nums);
+            //newNode.Nums = nums;
             if (root == null)
             {
-                root = newNode;
+                root = new Node(nums);
+                return;
             }
             else
             {
                 Node currentlocation = root;
-                Node seedling;
+                //Node seedling;
                 while (true)
                 {
-                    seedling = currentlocation;
+                    //seedling = currentlocation;
                     if (nums < currentlocation.Nums)
                     {
-                        currentlocation = currentlocation.Left;
-                    }
-                    if (currentlocation == null)
-                    {
-                        seedling.Left = newNode;
-                        count++;
-                        break;
-                    }
-                    else
-                    {
-                        currentlocation = currentlocation.Right;
-                        if (currentlocation == null)
+                        //currentlocation = currentlocation.Left;
+                        if (currentlocation.Left == null)
                         {
-                            seedling.Right = newNode;
+                            currentlocation.Left = new Node(nums);
                             count++;
                             break;
                         }
+                        else
+                            currentlocation = currentlocation.Left;
+                    }
+                    if(nums >= currentlocation.Nums)
+                    {
+                        if (currentlocation.Right == null)
+                        {
+                            currentlocation.Right = new Node(nums);
+                            count++;
+                            break;
+                        }
+                        else
+                            currentlocation = currentlocation.Right;
                     }
                 }
             }
         }
 
-        //public object SearchForNode(object node, Node root)
-        //{
-        //    current = root;
-        //    if (current == null)
-        //        return "Sorry, not found";
-        //    if(Convert.ToInt32(node)== Convert.ToInt32(current.))
-        //}
+        public bool Search(int nums)
+        {
+            Node currentlocation = root;
+            while(currentlocation != null)
+            {
+                if (nums == currentlocation.Nums)
+                {
+                    return (true);
+                }
+                if(nums > currentlocation.Nums)
+                {
+                    if(currentlocation.Right == null)
+                    {
+                        break;
+                    }
+                    else
+                        currentlocation = currentlocation.Right;
+                }
+                    if(nums < currentlocation.Nums)
+                    {
+                        if (currentlocation.Left == null)
+                        {
+                            break;
+                        }
+                        else
+                        currentlocation = currentlocation.Left;
+                }
+            }
+            return (false);
+        }
     }
 }
